@@ -10,6 +10,7 @@ const wsServer = new WebSocket.Server({ port: 8080 });
 appServer.listen(3000);
 
 let MESSAGES = [];
+let URLS = [];
 
 wsServer.on('connection', (ws) => {
 	console.log('new connection');
@@ -32,7 +33,8 @@ wsServer.on('connection', (ws) => {
 			urls = results.map((result, i) => {
 				return result[0].images.original.url;
 			});
-			return results;
+			URLS.push(urls);
+			// return results;
 		}
 
 		// @ts-ignore
@@ -43,7 +45,7 @@ wsServer.on('connection', (ws) => {
 					JSON.stringify({
 						message: message,
 						clients: wsServer.clients.size,
-						gifUrls: urls,
+						gifUrl: urls,
 					})
 				);
 			}
@@ -54,6 +56,7 @@ wsServer.on('connection', (ws) => {
 		JSON.stringify({
 			messages: MESSAGES,
 			clients: wsServer.clients.size,
+			gifUrls: URLS,
 		})
 	);
 });

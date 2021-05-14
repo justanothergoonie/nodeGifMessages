@@ -10,6 +10,8 @@ class Main {
 		newMesgForm.addEventListener('submit', this.handleSubmit);
 
 		document.addEventListener('addMessage', this.handleAddMessage);
+
+		document.addEventListener('addGif', this.handleAddGif);
 	}
 
 	handleAddMessage = (evt) => {
@@ -18,6 +20,10 @@ class Main {
 		const mesgEl = document.createElement('p');
 		mesgEl.textContent = mesg;
 		this.messagesEl.appendChild(mesgEl);
+	};
+	handleAddGif = (evt) => {
+		const gif = evt.detail;
+		console.log(gif);
 	};
 	handleSubmit = (evt) => {
 		evt.preventDefault();

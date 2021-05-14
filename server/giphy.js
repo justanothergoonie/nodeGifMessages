@@ -15,12 +15,6 @@ class GiphyApi {
 			},
 		});
 		return results.data.data;
-		// .then((term) => {
-		// 	Promise.all(term);
-		// })
-		// .catch((err) => {
-		// 	console.error('giphy search error', err);
-		// });
 	}
 	async searchMultiple(phrase) {
 		const terms = phrase.split(' ');
