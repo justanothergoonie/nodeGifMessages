@@ -4,6 +4,8 @@ class Main {
 
 		this.messagesEl = document.querySelector('#messages');
 		this.chat = new ChatClient();
+		this.gifsContainer = document.createElement('div');
+		this.gifsContainer.setAttribute('class', 'gif-container');
 	}
 	setUpListener() {
 		var newMesgForm = document.querySelector('[name="new-message"]');
@@ -22,8 +24,21 @@ class Main {
 		this.messagesEl.appendChild(mesgEl);
 	};
 	handleAddGif = (evt) => {
-		const gif = evt.detail;
-		console.log(gif);
+		const gifs = evt.detail;
+		console.log(gifs);
+		// function setAtributes()
+		gifs.forEach((gif) => {
+			const defineGifSize = document.createElement('div');
+			const gifEl = document.createElement('img');
+
+			defineGifSize.setAttribute('class', 'gif-definer');
+			gifEl.setAttribute('class', 'gif');
+			gifEl.setAttribute('src', gif);
+
+			defineGifSize.appendChild(gifEl);
+			this.gifsContainer.appendChild(defineGifSize);
+		});
+		this.messagesEl.appendChild(this.gifsContainer);
 	};
 	handleSubmit = (evt) => {
 		evt.preventDefault();

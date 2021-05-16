@@ -6,11 +6,13 @@ class ChatClient {
 
 		this.ws.onopen = this.handleOpen;
 		this.ws.onmessage = this.handleMessage;
+		this.ws.onmessage = this.handleGif;
 		this.ws.onerror = this.handelError;
 	}
 
-	send = (message) => {
-		this.ws.send(message);
+	send = (gifUrl) => {
+		this.ws.send(gifUrl);
+		// this.ws.send(message);
 	};
 
 	handleOpen = (conn) => {
@@ -34,7 +36,7 @@ class ChatClient {
 		if (payload.gifUrl != undefined) {
 			this.sendNewGif(payload.gifUrl);
 		} else if (payload.gifUrls != undefined) {
-			payload.GifUrls.forEach((gif) => this.sendNewGif(gif));
+			payload.gifUrls.forEach((gif) => this.sendNewGif(gif));
 			// payload.gifUrls.forEach((gif) => this.sendNewMessage(gif));
 		}
 	};

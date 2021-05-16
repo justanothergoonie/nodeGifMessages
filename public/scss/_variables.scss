@@ -1,0 +1,32 @@
+$breakpoint-mobile: 480px;
+
+$breakpoint-tablet: 768px;
+
+$breakpoint-desktop: 1024px;
+
+// Mixins
+
+@mixin flex-center {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin bp-small {
+	@media screen and (min-width: $breakpoint-mobile) {
+		@content;
+	}
+}
+
+@mixin bp-med {
+	@media screen and (min-width: $breakpoint-tablet) {
+		@content;
+	}
+}
+
+@mixin bp-large {
+	@media screen and (min-width: $breakpoint-desktop) {
+		@content;
+	}
+}

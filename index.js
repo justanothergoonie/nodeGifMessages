@@ -1,4 +1,5 @@
 const express = require('express');
+// const Styles = require('./public/scss/main.scss');
 const WebSocket = require('ws');
 const GiphyApi = require('./server/giphy.js');
 
@@ -29,12 +30,13 @@ wsServer.on('connection', (ws) => {
 			alert('You need to search for something');
 		} else {
 			results = await api.searchMultiple(queryTerms);
-
+			console.log(results);
 			urls = results.map((result, i) => {
-				return result[0].images.original.url;
+				let randUrl = result[Math.floor(Math.random() * result.length)];
+				return randUrl.images.original.url;
 			});
+
 			URLS.push(urls);
-			// return results;
 		}
 
 		// @ts-ignore

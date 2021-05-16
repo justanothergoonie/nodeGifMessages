@@ -11,7 +11,7 @@ class GiphyApi {
 			params: {
 				api_key: this.API_KEY,
 				q: term,
-				rating: 'pg-13',
+				rating: 'pg',
 			},
 		});
 		return results.data.data;
