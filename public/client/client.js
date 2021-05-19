@@ -5,14 +5,13 @@ class ChatClient {
 		this.ws = new WebSocket(this.SOCKET_URL);
 
 		this.ws.onopen = this.handleOpen;
-		this.ws.onmessage = this.handleMessage;
+		// this.ws.onmessage = this.handleMessage;
 		this.ws.onmessage = this.handleGif;
 		this.ws.onerror = this.handelError;
 	}
 
-	send = (gifUrl) => {
-		this.ws.send(gifUrl);
-		// this.ws.send(message);
+	send = (message) => {
+		this.ws.send(message);
 	};
 
 	handleOpen = (conn) => {
@@ -38,20 +37,20 @@ class ChatClient {
 		} else if (payload.gifUrls != undefined) {
 			payload.gifUrls.forEach((gif) => this.sendNewGif(gif));
 		}
-	};
-
-	handleMessage = (evt) => {
-		const payload = JSON.parse(evt.data);
-		console.log('received payload', payload);
-		if (payload.clients != undefined) {
-			//send event with client count
-		}
 		if (payload.message != undefined) {
 			this.sendNewMessage(payload.message);
 		} else if (payload.messages != undefined) {
 			payload.messages.forEach((mesg) => this.sendNewMessage(mesg));
 		}
 	};
+
+	// handleMessage = (evt) => {
+	// 	const payload = JSON.parse(evt.data);
+	// 	console.log('received payload', payload);
+	// 	if (payload.clients != undefined) {
+	// 		//send event with client count
+	// 	}
+	// };
 
 	handelError = (error) => {
 		console.error('got an error', error);
