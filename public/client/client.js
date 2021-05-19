@@ -37,7 +37,6 @@ class ChatClient {
 			this.sendNewGif(payload.gifUrl);
 		} else if (payload.gifUrls != undefined) {
 			payload.gifUrls.forEach((gif) => this.sendNewGif(gif));
-			// payload.gifUrls.forEach((gif) => this.sendNewMessage(gif));
 		}
 	};
 
