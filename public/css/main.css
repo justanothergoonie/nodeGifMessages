@@ -147,11 +147,29 @@ table {
 #messages .gif-container .gif-definer {
 	width: 33%;
 	height: 250px;
+	position: relative;
 }
 
 #messages .gif-container .gif-definer .gif {
 	height: 100%;
 	width: 100%;
+}
+
+#messages .gif-container .gif-definer .syn {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	font-size: 2rem;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.blur {
+	filter: blur(5px);
 }
 
 /*# sourceMappingURL=main.css.map */

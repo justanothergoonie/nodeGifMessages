@@ -22,9 +22,9 @@ class ChatClient {
     });
     document.dispatchEvent(evt);
   };
-  sendNewGif = gifUrl => {
-    const evt = new CustomEvent('addGif', {
-      detail: gifUrl
+  sendResults = results => {
+    const evt = new CustomEvent('addResults', {
+      detail: results
     });
     document.dispatchEvent(evt);
   };
@@ -35,10 +35,8 @@ class ChatClient {
     if (payload.clients != undefined) {//send event with client count
     }
 
-    if (payload.gifUrl != undefined) {
-      this.sendNewGif(payload.gifUrl);
-    } else if (payload.gifUrls != undefined) {
-      payload.gifUrls.forEach(gif => this.sendNewGif(gif));
+    if (payload.results != undefined) {
+      this.sendResults(payload.results);
     }
 
     if (payload.message != undefined) {
@@ -46,14 +44,7 @@ class ChatClient {
     } else if (payload.messages != undefined) {
       payload.messages.forEach(mesg => this.sendNewMessage(mesg));
     }
-  }; // handleMessage = (evt) => {
-  // 	const payload = JSON.parse(evt.data);
-  // 	console.log('received payload', payload);
-  // 	if (payload.clients != undefined) {
-  // 		//send event with client count
-  // 	}
-  // };
-
+  };
   handelError = error => {
     console.error('got an error', error);
   };

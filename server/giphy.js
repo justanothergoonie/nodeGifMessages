@@ -26,18 +26,5 @@ class GiphyApi {
 		);
 		return results;
 	}
-	// handleResponse(response) {
-	// 	// console.log('got a response', response);
-
-	// 	const value = response.data;
-
-	// 	const event = new CustomEvent('got-results', { detail: value });
-	// 	document.querySelector('body').dispatchEvent(event);
-	// }
-
-	// handleError(error) {
-	// 	const event = new CustomEvent('got-error', { detail: error });
-	// 	document.querySelector('body').dispatchEvent(event);
-	// }
 }
 module.exports = GiphyApi;

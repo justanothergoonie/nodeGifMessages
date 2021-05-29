@@ -2,6 +2,7 @@ const express = require('express');
 // const Styles = require('./public/scss/main.scss');
 const WebSocket = require('ws');
 const GiphyApi = require('./server/giphy.js');
+const WordsApi = require('./server/words.js');
 
 const appServer = express();
 appServer.use(express.json());
@@ -11,7 +12,7 @@ const wsServer = new WebSocket.Server({ port: 8080 });
 appServer.listen(3000);
 
 let MESSAGES = [];
-let URLS = [];
+let FULL_RESULTS = [];
 
 wsServer.on('connection', (ws) => {
 	console.log('new connection');
@@ -23,20 +24,28 @@ wsServer.on('connection', (ws) => {
 		MESSAGES.push(message);
 
 		const queryTerms = message;
-		let results;
-		let urls;
-		const api = new GiphyApi();
+		let giphyResults;
+		let wordsResults;
+		let currentResults;
+		// let wordSynonyms;
+		const gifyApi = new GiphyApi();
+		const wordAPi = new WordsApi();
 		if (queryTerms === '') {
 			alert('You need to search for something');
 		} else {
-			results = await api.searchMultiple(queryTerms);
-			console.log(results);
-			urls = results.map((result, i) => {
+			giphyResults = await gifyApi.searchMultiple(queryTerms);
+
+			wordsResults = await wordAPi.searchMultiple(queryTerms, 'synonyms');
+			currentResults = giphyResults.map((result, i) => {
 				let randUrl = result[Math.floor(Math.random() * result.length)];
-				return randUrl.images.original.url;
+				let randSyn = wordsResults[i];
+				return {
+					gifUrl: randUrl.images.original.url,
+					words: randSyn.slice(0, 3),
+				};
 			});
 
-			URLS.push(urls);
+			FULL_RESULTS.push(currentResults);
 		}
 
 		// @ts-ignore
@@ -47,18 +56,18 @@ wsServer.on('connection', (ws) => {
 					JSON.stringify({
 						message: message,
 						clients: wsServer.clients.size,
-						gifUrl: urls,
+						results: currentResults,
 					})
 				);
 			}
 		});
 	});
-
+	//think what we want to be sent when new people join
 	ws.send(
 		JSON.stringify({
 			messages: MESSAGES,
 			clients: wsServer.clients.size,
-			gifUrls: URLS,
+			results: FULL_RESULTS,
 		})
 	);
 });
