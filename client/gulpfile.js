@@ -178,7 +178,7 @@ gulp.task('start-browsersync', function (done) {
 	browserSync.init({
 		// start the browsersync mini-server
 		// server: "./", // on the root of the project
-		proxy: 'http://localhost:8080',
+		proxy: 'http://localhost:3000',
 	});
 	done();
 });
