@@ -9,7 +9,7 @@ const appServer = express();
 appServer.use(express.json());
 appServer.use(express.static('public'));
 
-const wsServer = new WebSocket.Server({ port: PORT });
+const wsServer = new WebSocket.Server(/*{ port: 8080 }*/);
 appServer.listen(PORT);
 
 let MESSAGES = [];
