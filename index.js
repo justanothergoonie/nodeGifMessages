@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 // const Styles = require('./public/scss/main.scss');
 const WebSocket = require('ws');
@@ -9,8 +10,8 @@ const appServer = express();
 appServer.use(express.json());
 appServer.use(express.static('public'));
 
-const wsServer = new WebSocket.Server({ server: appServer });
-appServer.listen(PORT);
+const server = http.createServer(appServer);
+const wsServer = new WebSocket.Server({ server });
 
 let MESSAGES = [];
 let FULL_RESULTS = [];
@@ -76,3 +77,5 @@ wsServer.on('connection', (ws) => {
 appServer.get('/', (req, res) => {
 	res.sendFile('public/index.html');
 });
+
+server.listen(PORT);
