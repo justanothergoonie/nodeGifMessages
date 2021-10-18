@@ -1,5 +1,5 @@
 class ChatClient {
-	SOCKET_URL = 'ws://localhost:8080';
+	SOCKET_URL = 'ws://guarded-garden-71841.herokuapp.com/';
 
 	constructor() {
 		console.log('new ChatClient');
