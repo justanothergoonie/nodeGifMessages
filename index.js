@@ -3,13 +3,14 @@ const express = require('express');
 const WebSocket = require('ws');
 const GiphyApi = require('./server/giphy.js');
 const WordsApi = require('./server/words.js');
+const PORT = process.env.PORT || 3000;
 
 const appServer = express();
 appServer.use(express.json());
 appServer.use(express.static('public'));
 
-const wsServer = new WebSocket.Server({ port: 8080 });
-appServer.listen(3000);
+const wsServer = new WebSocket.Server({ port: PORT });
+appServer.listen(PORT);
 
 let MESSAGES = [];
 let FULL_RESULTS = [];
