@@ -1,5 +1,5 @@
 class ChatClient {
-	SOCKET_URL = 'wss://guarded-garden-71841.herokuapp.com/';
+	SOCKET_URL = 'wss://giphymessags.herokuapp.com/';
 
 	constructor() {
 		console.log('new ChatClient');
